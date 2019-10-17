@@ -24,7 +24,7 @@ public class Proyecto2 {
         User user = new User("Daniel", "Velasquez", "jd@gmail.com", "123", "456", false);
         User user2 = new User("Josefino", "Orozco", "josefino@gmail.com", "123", "456", false);
         list.addStart(user);
-        list.addStart(user2);
+        list.addFinish(user2);
         
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {

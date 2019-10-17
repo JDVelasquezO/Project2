@@ -5,6 +5,7 @@
  */
 package login;
 
+import admin.AdminHome;
 import javax.swing.JOptionPane;
 import static proyecto2.Proyecto2.list;
 import static proyecto2.Proyecto2.objectTemp;
@@ -209,7 +210,9 @@ public class Login extends javax.swing.JFrame {
         int length = list.getLength();
         
         if (email.equals("Admin") && pass.equals("Admin")) {
-            System.out.println("Bienvenido");
+            AdminHome adminHome = new AdminHome();
+            adminHome.setVisible(true);
+            this.dispose();
         } else {
             for (int i = 0; i < length; i++) {
                 Object object = list.getValue(i);

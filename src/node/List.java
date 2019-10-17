@@ -28,6 +28,22 @@ public class List {
         this.length++;
     }
     
+    // Al final
+    public void addFinish (Object value) {
+        Node node = new Node(value);
+        if (isEmpty()) {
+            start = node;
+        } else {
+            Node pointer = start;
+            while (pointer.next != null) {
+                pointer = pointer.next;
+            }
+
+            pointer.next = node;
+        }
+        length++;
+    }
+    
     // Obtener un nodo
     public Object getValue (int n) {
         if (isEmpty()) {

@@ -160,7 +160,7 @@ public class CreateClient extends javax.swing.JFrame {
         String credit = txtCredit.getText();
 
         User user = new User(first, last, email, pass, credit, false);
-        list.addStart(user);
+        list.addFinish(user);
         System.out.println(user.getId());
         JOptionPane.showMessageDialog(null, "Creado satisfactoriamente");
         Login login = new Login();
