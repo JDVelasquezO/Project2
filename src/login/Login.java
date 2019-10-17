@@ -7,6 +7,8 @@ package login;
 
 import javax.swing.JOptionPane;
 import static proyecto2.Proyecto2.list;
+import static proyecto2.Proyecto2.objectTemp;
+import user.User;
 import user.client.ClientHome;
 import user.client.CreateClient;
 
@@ -22,6 +24,7 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
         
+        objectTemp = null;
         setLocationRelativeTo(null);
         setTitle("Login");
         txtEmail.requestFocus();
@@ -211,7 +214,7 @@ public class Login extends javax.swing.JFrame {
             for (int i = 0; i < length; i++) {
                 Object object = list.getValue(i);
                 if (object.toString().equals(email + pass)) {
-                    System.out.println(object);
+                    objectTemp = (User) object;
                     ClientHome clientHome = new ClientHome();
                     clientHome.setVisible(true);
                     this.dispose();

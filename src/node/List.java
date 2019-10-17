@@ -28,6 +28,7 @@ public class List {
         this.length++;
     }
     
+    // Obtener un nodo
     public Object getValue (int n) {
         if (isEmpty()) {
             return null;
@@ -43,6 +44,27 @@ public class List {
                 return null;
             } else {
                 return pointer.value;
+            }
+        }
+    }
+    
+    // Modificar un nodo en concreto:
+    public void modifyNode (int n, Object newValue) {
+        if (isEmpty()) {
+            System.out.println("La cabeca esta vacía");
+        } else {
+            Node pointer = start;
+            int counter = 0;
+            
+            while (counter < n && pointer.next != null) {
+                pointer = pointer.next;
+                counter++;
+            }
+            
+            if (counter != n) {
+                System.out.println("Contador es distinto de " + n);
+            } else {
+                pointer.value = newValue;
             }
         }
     }

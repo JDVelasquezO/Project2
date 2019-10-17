@@ -5,12 +5,17 @@
  */
 package user.client;
 
+import javax.swing.JOptionPane;
+import static proyecto2.Proyecto2.list;
+import static proyecto2.Proyecto2.objectTemp;
+import user.User;
+
 /**
  *
  * @author JDVelasquezO
  */
 public class ModifyClient extends javax.swing.JFrame {
-
+    String firstText, lastText, emailText, passText, targetText;
     /**
      * Creates new form ModifyClient
      */
@@ -19,6 +24,19 @@ public class ModifyClient extends javax.swing.JFrame {
         
         setLocationRelativeTo(null);
         setTitle("Actualizar");
+        
+        firstText = objectTemp.getName();
+        lastText = objectTemp.getLast();
+        emailText = objectTemp.getEmail();
+        passText = objectTemp.getPass();
+        targetText = objectTemp.getCreditCard();
+        
+        txtFirst1.setText(firstText);
+        txtLast1.setText(lastText);
+        txtEmail.setText(emailText);
+        txtPass.setText(passText);
+        txtCredit.setText(targetText);
+        txtFirst1.requestFocus();
     }
 
     /**
@@ -178,12 +196,13 @@ public class ModifyClient extends javax.swing.JFrame {
         String pass = txtPass.getText();
         String credit = txtCredit.getText();
 
-        /*User user = new User(first, last, email, pass, credit, false);
-        list.addStart(user);
+        User user = new User(first, last, email, pass, credit, false);
+        list.modifyNode(objectTemp.getId(), user);
+        objectTemp = user;
         JOptionPane.showMessageDialog(null, "Creado satisfactoriamente");
-        Login login = new Login();
-        login.setVisible(true);
-        this.dispose();*/
+        ClientHome clientHome = new ClientHome();
+        clientHome.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

@@ -16,9 +16,11 @@ import user.User;
 public class Proyecto2 {
 
     public static List list;
+    public static User objectTemp;
     
     public static void main(String[] args) {
         list = new List();
+        
         User user = new User("Daniel", "Velasquez", "jd@gmail.com", "123", "456", false);
         User user2 = new User("Josefino", "Orozco", "josefino@gmail.com", "123", "456", false);
         list.addStart(user);

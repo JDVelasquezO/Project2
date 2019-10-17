@@ -15,7 +15,6 @@ import user.User;
  * @author JDVelasquezO
  */
 public class CreateClient extends javax.swing.JFrame {
-
     /**
      * Creates new form CreateClient
      */
@@ -162,6 +161,7 @@ public class CreateClient extends javax.swing.JFrame {
 
         User user = new User(first, last, email, pass, credit, false);
         list.addStart(user);
+        System.out.println(user.getId());
         JOptionPane.showMessageDialog(null, "Creado satisfactoriamente");
         Login login = new Login();
         login.setVisible(true);

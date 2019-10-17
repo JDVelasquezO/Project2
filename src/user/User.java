@@ -10,15 +10,27 @@ package user;
  * @author JDVelasquezO
  */
 public class User {
+    private int id;
+    public static int counter = 0;
     private String name, last, email, pass, creditCard;
     private boolean type;
 
     public User(String name, String last, String email, String pass, String creditCard, boolean type) {
+        counter++;
+        this.id = counter;
         this.name = name;
         this.last = last;
         this.email = email;
         this.pass = pass;
         this.creditCard = creditCard;
+    }
+    
+    public User() {
+        this("---", "---", "example@gmail.com", "123", "456", false);
+    }
+    
+    public int getId() {
+        return id;
     }
 
     public String getName() {
