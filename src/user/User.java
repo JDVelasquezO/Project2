@@ -16,8 +16,17 @@ public class User {
     private boolean type;
 
     public User(String name, String last, String email, String pass, String creditCard, boolean type) {
-        counter++;
         this.id = counter;
+        counter++;
+        this.name = name;
+        this.last = last;
+        this.email = email;
+        this.pass = pass;
+        this.creditCard = creditCard;
+    }
+    
+    public User(int id, String name, String last, String email, String pass, String creditCard, boolean type) {
+        this.id = id;
         this.name = name;
         this.last = last;
         this.email = email;

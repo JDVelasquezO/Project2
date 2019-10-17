@@ -31,6 +31,8 @@ public class ModifyClient extends javax.swing.JFrame {
         passText = objectTemp.getPass();
         targetText = objectTemp.getCreditCard();
         
+        System.out.println(objectTemp.getId());
+        
         txtFirst1.setText(firstText);
         txtLast1.setText(lastText);
         txtEmail.setText(emailText);
@@ -196,10 +198,12 @@ public class ModifyClient extends javax.swing.JFrame {
         String pass = txtPass.getText();
         String credit = txtCredit.getText();
 
-        User user = new User(first, last, email, pass, credit, false);
+        User user = new User(objectTemp.getId(), first, last, email, pass, credit, false);
+        System.out.println(user.getId());
         list.modifyNode(objectTemp.getId(), user);
         objectTemp = user;
-        JOptionPane.showMessageDialog(null, "Creado satisfactoriamente");
+        System.out.println(user.getId());
+        JOptionPane.showMessageDialog(null, "Actualizado satisfactoriamente");
         ClientHome clientHome = new ClientHome();
         clientHome.setVisible(true);
         this.dispose();

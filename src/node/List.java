@@ -78,7 +78,7 @@ public class List {
             }
             
             if (counter != n) {
-                System.out.println("Contador es distinto de " + n);
+                System.out.println(counter + " es distinto de " + n);
             } else {
                 pointer.value = newValue;
             }

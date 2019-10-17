@@ -11,7 +11,6 @@ import javax.swing.table.DefaultTableModel;
 import static proyecto2.Proyecto2.list;
 import static proyecto2.Proyecto2.objectTemp;
 import user.User;
-import user.client.ClientHome;
 
 /**
  *
@@ -134,8 +133,7 @@ public class Users extends javax.swing.JFrame {
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         int selected = jTable1.rowAtPoint(evt.getPoint());
         String data = String.valueOf(jTable1.getValueAt(selected, 0));
-        int id = Integer.parseInt(data) - 1;
-        
+        int id = Integer.parseInt(data);
         Object object = list.getValue(id);
         objectTemp = (User) object;
         String msg = "Nombre completo: " + objectTemp.getName() + " " + objectTemp.getLast() + "\n" +
