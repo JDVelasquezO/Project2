@@ -11,13 +11,30 @@ package product;
  */
 public class Product {
     
+    public static int counter = 0;
+    private int n;
     private String id, name, desc, price, image;
     private boolean exist;
     
     public Product(String id, String name, String desc, String price, boolean exist, String image) {
-        setId(id); setName(name); setDesc(desc); setPrice(price); setExist(exist); setImage(image);
+        this.n = counter;
+        counter++;
+        this.id = id;
+        this.name = name;
+        this.desc = desc;
+        this.price = price;
+        this.exist = exist;
+        this.image = image;
     }
 
+    public int getN() {
+        return n;
+    }
+
+    public void setN(int n) {
+        this.n = n;
+    }
+    
     public String getId() {
         return id;
     }
@@ -66,5 +83,8 @@ public class Product {
         this.image = image;
     }
     
-    
+    @Override
+    public String toString() {
+        return this.id + ". " + this.name + " " + this.desc + " Q. " + this.price + ", ";
+    }
 }

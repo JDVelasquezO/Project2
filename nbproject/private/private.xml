@@ -3,10 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/JDVelasquezO/Documents/NetBeansProjects/Proyecto2/src/login/Login.java</file>
-            <file>file:/C:/Users/JDVelasquezO/Documents/NetBeansProjects/Proyecto2/src/user/client/ModifyClient.java</file>
-            <file>file:/C:/Users/JDVelasquezO/Documents/NetBeansProjects/Proyecto2/src/product/Product.java</file>
-            <file>file:/C:/Users/JDVelasquezO/Documents/NetBeansProjects/Proyecto2/src/admin/Users.java</file>
+            <file>file:/C:/Users/JDVelasquezO/Documents/NetBeansProjects/Proyecto2/src/product/Products.java</file>
+            <file>file:/C:/Users/JDVelasquezO/Documents/NetBeansProjects/Proyecto2/src/product/CreateProduct.java</file>
+            <file>file:/C:/Users/JDVelasquezO/Documents/NetBeansProjects/Proyecto2/src/offer/CreateOffer.java</file>
         </group>
     </open-files>
 </project-private>

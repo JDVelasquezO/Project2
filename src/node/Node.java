@@ -5,17 +5,34 @@
  */
 package node;
 
+import offer.Offer;
+
 /**
  *
  * @author JDVelasquezO
  */
 public class Node {
     
-    public Object value;
+    public Object circularValue;
+    public Offer value;
     public Node next;
 
-    // Incersión al inicio
+    public Node(Object value, Node next) {
+        this.circularValue = value;
+        this.next = next;
+    }
+
     public Node(Object value) {
+        this(value, null);
+    }
+
+    // Incersión al inicio
+    public Node(Offer value) {
         this.value = value;
+    }
+    
+    public Node(Offer value, Node next) {
+        this.value = value;
+        this.next = next;
     }
 }

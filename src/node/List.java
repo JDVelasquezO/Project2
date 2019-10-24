@@ -59,7 +59,7 @@ public class List {
             if (counter != n) {
                 return null;
             } else {
-                return pointer.value;
+                return pointer.circularValue;
             }
         }
     }
@@ -80,7 +80,7 @@ public class List {
             if (counter != n) {
                 System.out.println(counter + " es distinto de " + n);
             } else {
-                pointer.value = newValue;
+                pointer.circularValue = newValue;
             }
         }
     }

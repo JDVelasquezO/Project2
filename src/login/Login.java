@@ -10,8 +10,8 @@ import javax.swing.JOptionPane;
 import static proyecto2.Proyecto2.list;
 import static proyecto2.Proyecto2.objectTemp;
 import user.User;
-import user.client.ClientHome;
-import user.client.CreateClient;
+import user.ClientHome;
+import user.CreateClient;
 
 /**
  *
