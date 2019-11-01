@@ -1,8 +1,6 @@
 package offer;
 
 import node.CircularList;
-import static proyecto2.Proyecto2.circularList;
-import static proyecto2.Proyecto2.circularList2;
 
 /**
  *

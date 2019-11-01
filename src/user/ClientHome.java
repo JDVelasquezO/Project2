@@ -12,15 +12,14 @@ import javax.swing.BorderFactory;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import java.awt.Color;
-import java.awt.Dimension;
+import java.awt.Cursor;
 import java.awt.Image;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JScrollPane;
+import javax.swing.JButton;
+import offer.Offer;
 import product.Product;
 import static proyecto2.Proyecto2.circularList;
-import static proyecto2.Proyecto2.list;
-import static proyecto2.Proyecto2.objectProduct;
 import static proyecto2.Proyecto2.objectTemp;
 import static proyecto2.Proyecto2.priorityQueue;
 
@@ -33,12 +32,9 @@ public class ClientHome extends javax.swing.JFrame {
     int length = circularList.getLength();
     JLabel[] labels;
     JLabel[] labels2;
+    JButton[] button;
     Border border = BorderFactory.createLineBorder(Color.black, 1);
-    JScrollPane scroll;
-    Product aux;
-    /**
-     * Creates new form ClientHome
-     */
+    
     public ClientHome() {
         initComponents();
         
@@ -47,34 +43,52 @@ public class ClientHome extends javax.swing.JFrame {
         
         labels = new JLabel[length];
         labels2 = new JLabel[length];
-        
+        button = new JButton[length];
         nameText = objectTemp.getName();
         jLabel1.setText("Bienvenido " + nameText);
         
-        for (int i = 0; i < labels.length; i++) {
-            Object object = circularList.getValue(i);
-            objectProduct = (Product) object;
-            String dir = objectProduct.getImage();
-            String name = objectProduct.getName();
-            String price = objectProduct.getPrice();
-            ImageIcon img = new ImageIcon(dir);
-            
-            labels[i] = new JLabel();
-            labels[i].setBounds(new Rectangle((i)*220, 35, 200, 150));
-            int width = labels[i].getWidth();
-            int height = labels[i].getHeight();
-            Icon icon = new ImageIcon(img.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
-            labels[i].setIcon(icon);
-            labels[i].setHorizontalAlignment(SwingConstants.CENTER);
+        for (int i = 0; i < priorityQueue.getLength(); i++) {
+            Offer offer = (Offer) priorityQueue.getValue(i);
+            String name = "", dir = "", price = "";
+            ImageIcon img = null;
+            for (int j = 0; j < offer.getProducts().getLength(); j++) {
+                Product prod = (Product) offer.getProducts().getValue(j);
+                name = prod.getName();
+                dir = prod.getImage();
+                price = prod.getPrice();
+                img = new ImageIcon(dir);
+                System.out.println(name);
 
-            labels2[i] = new JLabel();
-            labels2[i].setBounds(new Rectangle((i)*220, 130, 200, 150));
-            labels2[i].setHorizontalAlignment(SwingConstants.CENTER);
-            labels2[i].setText(name + " Q." + price);
+                labels[j] = new JLabel();
+                labels[j].setBounds(new Rectangle((j)*220, 35, 200, 150));
+                int width = labels[j].getWidth();
+                int height = labels[j].getHeight();
+                Icon icon = new ImageIcon(img.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
+                labels[j].setIcon(icon);
+                labels[j].setHorizontalAlignment(SwingConstants.CENTER);
+                labels[j].setCursor(new Cursor(HAND_CURSOR));
 
-            jPanel2.add(labels[i], null);
-            jPanel2.add(labels2[i], null);
+                labels2[j] = new JLabel();
+                labels2[j].setBounds(new Rectangle((j)*220, 130, 200, 150));
+                labels2[j].setHorizontalAlignment(SwingConstants.CENTER);
+                labels2[j].setText(name + " Q." + price);
+                labels2[j].setCursor(new Cursor(HAND_CURSOR));
+
+                button[j] = new JButton();
+                button[j].setBounds(new Rectangle((j)*240, 220, 100, 20));
+                button[j].setHorizontalAlignment(SwingConstants.CENTER);
+                button[j].setCursor(new Cursor(HAND_CURSOR));
+                button[j].setText("Añadir al carrito");
+
+                jTextArea1.add(labels[j], null);
+                jTextArea1.add(labels2[j], null);
+                jTextArea1.add(button[j], null);
+            }
         }
+    }
+    
+    public void addToCart() {
+        
     }
 
     /**
@@ -90,9 +104,12 @@ public class ClientHome extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jPanel2 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -122,7 +139,7 @@ public class ClientHome extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 260, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2)
@@ -139,27 +156,23 @@ public class ClientHome extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel2.setFont(new java.awt.Font("Calibri Light", 0, 14)); // NOI18N
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jTextArea1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jScrollPane2.setViewportView(jTextArea1);
+
         jLabel2.setText("Ofertas");
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2)
-                .addContainerGap(941, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2)
-                .addContainerGap(270, Short.MAX_VALUE))
-        );
+        jButton3.setText("Todos los productos en tienda");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
-        jScrollPane1.setViewportView(jPanel2);
+        jButton4.setText("(0) Q.0.00");
+
+        jButton5.setText("Pagar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -169,7 +182,16 @@ public class ClientHome extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 858, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton3)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton5)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -177,8 +199,15 @@ public class ClientHome extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jButton4)
+                    .addComponent(jButton5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton3)
                 .addContainerGap())
         );
 
@@ -197,6 +226,12 @@ public class ClientHome extends javax.swing.JFrame {
         this.dispose();
         objectTemp = null;
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        ClientProducts cp = new ClientProducts();
+        cp.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -236,10 +271,13 @@ public class ClientHome extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 }

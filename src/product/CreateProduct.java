@@ -1,8 +1,13 @@
 
 package product;
 
+import com.sun.xml.internal.ws.util.StringUtils;
 import files.Files;
+import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import node.CircularList;
@@ -24,6 +29,8 @@ public class CreateProduct extends javax.swing.JFrame {
         
         setLocationRelativeTo(null);
         setTitle("Crear productos");
+        
+        jButton3.requestFocus();
     }
 
     /**
@@ -234,12 +241,17 @@ public class CreateProduct extends javax.swing.JFrame {
             exist = false;
         }
         
-        Product product = new Product(id, name, desc, price, exist, url);
-        circularList.add(product);
-        JOptionPane.showMessageDialog(null, "Producto agregado correctamente");
-        Products products = new Products();
-        products.setVisible(true);
-        this.dispose();
+        if (id.isEmpty() || name.isEmpty() || desc.isEmpty() || price.isEmpty() || url.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debes llenar todos los campos");
+        } else {
+            Product product = new Product(id, name, desc, price, exist, url);
+            circularList.add(product);
+            JOptionPane.showMessageDialog(null, "Producto agregado correctamente");
+            Products products = new Products();
+            products.setVisible(true);
+            this.dispose();
+        }
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -256,35 +268,43 @@ public class CreateProduct extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         JFileChooser jfc2 = new JFileChooser();
-        Files files = new Files();
+        jfc2.showOpenDialog(jfc2);
         
-        int selected = jfc2.showOpenDialog(this);
-        
-        if (selected == JFileChooser.APPROVE_OPTION) {
+        try {
+            
+            String patch = jfc2.getSelectedFile().getAbsolutePath();
+            FileInputStream file = new FileInputStream(patch);
+            DataInputStream input = new DataInputStream(file);
+            BufferedReader buffer = new BufferedReader(new InputStreamReader(input));
+            
+            String str;
+            String str2 = "";
+            String[] length = null;
+            
+            while (( str = buffer.readLine()) != null) {
+                str2 += str + "\n";
+                length = str2.split("\n");
+            }
+            
+            for (int i = 0; i < length.length; i++) {
+                    array2 = length[i].split(",");
+                    name = array2[0];
+                    desc = array2[1];
+                    price = array2[2];
+                    id = array2[3];
+                    dir = array2[4];
 
-            file = jfc2.getSelectedFile();
-            fileToRead = files.read(file.getAbsolutePath());
-            
-            fileToRead = files.read(file.getAbsolutePath());
-            array = fileToRead.split("-");
-            
-            for (int i = 0; i < array.length; i++) {
-                array2 = array[i].split(",");
-                id = array2[0];
-                name = array2[1];
-                desc = array2[2];
-                price = array2[3];
-                exist = array2[4];
-                dir = array2[5];
-                
-                Product product = new Product(id, name, desc, price, false, dir);
-                circularList.add(product);
+                    Product product = new Product(id, name, desc, price, false, dir);
+                    circularList.add(product);
             }
             
             JOptionPane.showMessageDialog(null, "Productos cargados correctamente");
             Products products = new Products();
             products.setVisible(true);
             this.dispose();
+            
+        } catch (Exception e) {
+            System.out.println(e);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 

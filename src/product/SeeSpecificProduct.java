@@ -259,29 +259,37 @@ public class SeeSpecificProduct extends javax.swing.JFrame {
         String existence = "";
         String dir = objectProduct.getImage();
         
-        if (exist) {
-            existence = "Disponibilidad alta";
+        if (id.isEmpty() || name.isEmpty() || desc.isEmpty() || dir.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debes llenar todos los campos");
         } else {
-            existence = "No hay disponibles";
+            objectProduct.setName(name);
+            objectProduct.setDesc(desc);
+            objectProduct.setPrice(price);
+            objectProduct.setImage(dir);
+
+            if (exist) {
+                existence = "Disponibilidad alta";
+            } else {
+                existence = "No hay disponibles";
+            }
+
+            if (jCheckBox1.isSelected()) {
+                objectProduct.setExist(true);
+                jCheckBox1.setText("Disponibilidad alta");
+            } else {
+                objectProduct.setExist(false);
+                jCheckBox1.setText("No hay disponible");
+            }
+
+            circularList.modifyNode(Integer.parseInt(id), objectProduct);
+            JOptionPane.showMessageDialog(null, "Actualizado satisfactoriamente");
+            switchComponents(false);
+            System.out.println(objectProduct.getExist());
+
+            Products products = new Products();
+            products.setVisible(true);
+            this.dispose();
         }
-        
-        if (jCheckBox1.isSelected()) {
-            exist = true;
-            jCheckBox1.setText("Disponibilidad alta");
-        } else {
-            exist = false;
-            jCheckBox1.setText("No hay disponible");
-        }
-        
-        Product product = new Product(id, name, desc, price, exist, dir);
-        circularList.modifyNode(Integer.parseInt(id), product);
-        objectProduct = product;
-        JOptionPane.showMessageDialog(null, "Actualizado satisfactoriamente");
-        switchComponents(false);
-        
-        Products products = new Products();
-        products.setVisible(true);
-        this.dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     public void switchComponents(boolean value) {

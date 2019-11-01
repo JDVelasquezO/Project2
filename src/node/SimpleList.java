@@ -9,12 +9,12 @@ package node;
  *
  * @author JDVelasquezO
  */
-public class List {
+public class SimpleList {
     
     private Node start; // Puntero
     private int length; // Guardará el tamaño de la lista
     
-    public List() {
+    public SimpleList() {
         start = null;
         length = 0;
     }

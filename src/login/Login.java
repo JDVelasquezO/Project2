@@ -12,6 +12,7 @@ import static proyecto2.Proyecto2.objectTemp;
 import user.User;
 import user.ClientHome;
 import user.CreateClient;
+import user.UserHome;
 
 /**
  *
@@ -209,28 +210,32 @@ public class Login extends javax.swing.JFrame {
         String pass = txtPass.getText();
         int length = list.getLength();
         
-        if (email.equals("Admin") && pass.equals("Admin")) {
-            AdminHome adminHome = new AdminHome();
-            adminHome.setVisible(true);
-            this.dispose();
+        if (email.isEmpty() || pass.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debes llenar todos los campos");
         } else {
-            for (int i = 0; i < length; i++) {
-                Object object = list.getValue(i);
-                if (object.toString().equals(email + pass)) {
-                    objectTemp = (User) object;
-                    ClientHome clientHome = new ClientHome();
-                    clientHome.setVisible(true);
-                    this.dispose();
-                } else {
-                    txtEmail.requestFocus();
-                    jLabel5.setText("Verifica tu nombre o contraseña");
+            if (email.equals("Admin") && pass.equals("Admin")) {
+                AdminHome adminHome = new AdminHome();
+                adminHome.setVisible(true);
+                this.dispose();
+            } else {
+                for (int i = 0; i < length; i++) {
+                    Object object = list.getValue(i);
+                    if (object.toString().equals(email + pass)) {
+                        objectTemp = (User) object;
+                        ClientHome clientHome = new ClientHome();
+                        clientHome.setVisible(true);
+                        this.dispose();
+                    } else {
+                        txtEmail.requestFocus();
+                        jLabel5.setText("Verifica tu nombre o contraseña");
+                    }
                 }
             }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        
+        System.exit(0);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed

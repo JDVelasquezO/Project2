@@ -196,16 +196,21 @@ public class ModifyClient extends javax.swing.JFrame {
         String email = txtEmail.getText();
         String pass = txtPass.getText();
         String credit = txtCredit.getText();
+        
+        if (first.isEmpty() || last.isEmpty() || email.isEmpty() || pass.isEmpty() || credit.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No puedes dejar campos vacíos");
+        } else {
+            User user = new User(objectTemp.getId(), first, last, email, pass, credit, false);
+            System.out.println(user.getId());
+            list.modifyNode(objectTemp.getId(), user);
+            objectTemp = user;
+            System.out.println(user.getId());
+            JOptionPane.showMessageDialog(null, "Actualizado satisfactoriamente");
+            ClientHome clientHome = new ClientHome();
+            clientHome.setVisible(true);
+            this.dispose();
+        }
 
-        User user = new User(objectTemp.getId(), first, last, email, pass, credit, false);
-        System.out.println(user.getId());
-        list.modifyNode(objectTemp.getId(), user);
-        objectTemp = user;
-        System.out.println(user.getId());
-        JOptionPane.showMessageDialog(null, "Actualizado satisfactoriamente");
-        ClientHome clientHome = new ClientHome();
-        clientHome.setVisible(true);
-        this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

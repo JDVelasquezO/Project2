@@ -7,6 +7,7 @@ package offer;
 
 import admin.AdminHome;
 import files.Files;
+import java.text.DecimalFormat;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -26,6 +27,7 @@ import static proyecto2.Proyecto2.priorityQueue;
  */
 public class CreateOffer extends javax.swing.JFrame {
     DefaultListModel modelProds;
+    DecimalFormat df;
     public static String desc, discount, priority;
     
     public CreateOffer() {
@@ -33,6 +35,7 @@ public class CreateOffer extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setTitle("Crear Ofertas");
         
+        df = new DecimalFormat("#.00");
         txtIDs.requestFocus();
         
         modelProds = new DefaultListModel();
@@ -223,26 +226,30 @@ public class CreateOffer extends javax.swing.JFrame {
         String discount = txtDiscount.getText();
         String priority = (String) cmbPriority.getSelectedItem();
         
-        for (int i = 0; i < newIDs.length; i++) {
-            object = (Product) circularList.getValue(Integer.parseInt(newIDs[i]));
-            Double acutalPrice = Double.parseDouble(object.getPrice());
-            Double newDiscount = Double.parseDouble(discount);
-            Double calc = acutalPrice * (newDiscount)/100;
-            object.setPrice(calc.toString());
-            circularList2.add(object);
+        if (ids.isEmpty() || desc.isEmpty() || discount.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debes llenar todos los campos");
+        } else {
+            for (int i = 0; i < newIDs.length; i++) {
+                object = (Product) circularList.getValue(Integer.parseInt(newIDs[i]));
+                Double acutalPrice = Double.parseDouble(object.getPrice());
+                Double newDiscount = Double.parseDouble(discount);
+                Double calc = acutalPrice * (newDiscount)/100;
+                object.setPrice(df.format(calc).toString());
+                circularList2.add(object);
+            }
+
+            Offer offer = new Offer(desc, discount, priority);
+            offer.setProducts(circularList2);
+            priorityQueue.queuing(offer);
+
+            for (int i = 0; i < priorityQueue.getLength(); i++) {
+                System.out.println(priorityQueue.getValue(i));
+            }
+            JOptionPane.showMessageDialog(null, "Ofertas Agregadas Correctamente");
+            Offers offers = new Offers();
+            offers.setVisible(true);
+            this.dispose();
         }
-        
-        Offer offer = new Offer(desc, discount, priority);
-        offer.setProducts(circularList2);
-        priorityQueue.queuing(offer);
-        
-        for (int i = 0; i < priorityQueue.getLength(); i++) {
-            System.out.println(priorityQueue.getValue(i));
-        }
-        JOptionPane.showMessageDialog(null, "Ofertas Agregadas Correctamente");
-        Offers offers = new Offers();
-        offers.setVisible(true);
-        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -255,8 +262,9 @@ public class CreateOffer extends javax.swing.JFrame {
         JFileChooser jfc2 = new JFileChooser();
         Files files = new Files();
         int selected = jfc2.showOpenDialog(this);
+        Product product = null;
         circularList2 = new CircularList();
-        Product product;
+        Offer offer = null;
         
         if (selected == JFileChooser.APPROVE_OPTION) {
             file = jfc2.getSelectedFile();
@@ -270,22 +278,25 @@ public class CreateOffer extends javax.swing.JFrame {
                 desc = array2[0];
                 discount = array2[1];
                 priority = array2[3];
-                String names = array2[2];
-                product = (Product) circularList.searchName(names);
-                Double actualPrice = Double.parseDouble(product.getPrice());
-                Double discountPrice = Double.parseDouble(discount);
-                Double calc = actualPrice * (discountPrice)/100;
-                product.setPrice(calc.toString());
+                String[] names = array2[2].split(";");
+                
+                for (int j = 0; j < names.length; j++) {
+                    product = (Product) circularList.searchName(names[j]);
+                    Double actualPrice = Double.parseDouble(product.getPrice());
+                    Double discountPrice = Double.parseDouble(discount);
+                    Double calc = actualPrice * (discountPrice)/100;
+                    product.setPrice(df.format(calc).toString());
+                }
                 circularList2.add(product);
+                offer = new Offer(desc, discount, priority);
+                priorityQueue.queuing(offer);
+                offer.setProducts(circularList2);
             }
-            
-            Offer offer = new Offer(desc, discount, priority);
-            offer.setProducts(circularList2);
-            priorityQueue.queuing(offer);
             
             JOptionPane.showMessageDialog(null, "Ofertas Agregadas Correctamente");
             Offers offers = new Offers();
             offers.setVisible(true);
+            this.dispose();
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 

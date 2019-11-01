@@ -157,16 +157,18 @@ public class CreateClient extends javax.swing.JFrame {
         String email = txtEmail.getText();
         String pass = txtPass.getText();
         String credit = txtCredit.getText();
+        
+        if (first.isEmpty() || last.isEmpty() || email.isEmpty() || pass.isEmpty() || credit.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No puedes dejar campos vacíos");
+        } else {
+            User user = new User(first, last, email, pass, credit, false);
+            list.addFinish(user);
+            JOptionPane.showMessageDialog(null, "Creado satisfactoriamente");
+            Login login = new Login();
+            login.setVisible(true);
+            this.dispose();
+        }
 
-        User user = new User(first, last, email, pass, credit, false);
-        list.addFinish(user);
-        System.out.println(user.getId());
-        JOptionPane.showMessageDialog(null, "Creado satisfactoriamente");
-        Login login = new Login();
-        login.setVisible(true);
-        this.dispose();
-        Object object = list.getValue(0);
-        System.out.println(object);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
