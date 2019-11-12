@@ -18,20 +18,19 @@ public class CircularList {
     }
 
     public void add(Object value){
+        Node node = new Node(value);
         if (isEmpty()) {
-            start = new Node(value);
-            start.next = start;
+            start = node;
+            node.next = start;
         } else {
             Node pointer = start;
-            if (pointer.next == start) {
-                start.next = new Node(value, start);
-            } else {
-                while (pointer.next != start) {
-                    pointer = pointer.next;
-                }
 
-                pointer.next = new Node(value, start);
+            while (pointer.next != start) {
+                pointer = pointer.next;
             }
+
+            pointer.next = node;
+            node.next = start;
         }
         
         length++;

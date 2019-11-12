@@ -20,6 +20,7 @@ import product.Product;
 import static proyecto2.Proyecto2.circularList;
 import static proyecto2.Proyecto2.circularList2;
 import static proyecto2.Proyecto2.priorityQueue;
+import static user.ModifyClient.validateOnlyNumbers;
 
 /**
  *
@@ -86,6 +87,12 @@ public class CreateOffer extends javax.swing.JFrame {
 
         jLabel4.setText("Descuento:");
 
+        txtDiscount.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDiscountKeyTyped(evt);
+            }
+        });
+
         jButton1.setText("Agregar Oferta");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -111,6 +118,12 @@ public class CreateOffer extends javax.swing.JFrame {
         });
 
         jLabel7.setText("Id del producto o productos:");
+
+        txtIDs.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIDsKeyTyped(evt);
+            }
+        });
 
         jButton3.setText("Regresar");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -268,37 +281,49 @@ public class CreateOffer extends javax.swing.JFrame {
         
         if (selected == JFileChooser.APPROVE_OPTION) {
             file = jfc2.getSelectedFile();
-            fileToRead = files.read(file.getAbsolutePath());
-            
-            fileToRead = files.read(file.getAbsolutePath());
-            array = fileToRead.split("%");
-            
-            for (int i = 0; i < array.length; i++) {
-                array2 = array[i].split(",");
-                desc = array2[0];
-                discount = array2[1];
-                priority = array2[3];
-                String[] names = array2[2].split(";");
-                
-                for (int j = 0; j < names.length; j++) {
-                    product = (Product) circularList.searchName(names[j]);
-                    Double actualPrice = Double.parseDouble(product.getPrice());
-                    Double discountPrice = Double.parseDouble(discount);
-                    Double calc = actualPrice * (discountPrice)/100;
-                    product.setPrice(df.format(calc).toString());
+            String path = file.getAbsolutePath();
+            String validatePath = path.substring(path.lastIndexOf(".") + 1);
+            if (validatePath.equalsIgnoreCase("PROOFER")) {
+                fileToRead = files.read(file.getAbsolutePath());
+                array = fileToRead.split("%");
+
+                for (int i = 0; i < array.length; i++) {
+                    array2 = array[i].split(",");
+                    desc = array2[0];
+                    discount = array2[1];
+                    priority = array2[3];
+                    String[] names = array2[2].split(";");
+
+                    for (int j = 0; j < names.length; j++) {
+                        product = (Product) circularList.searchName(names[j]);
+                        Double actualPrice = Double.parseDouble(product.getPrice());
+                        Double discountPrice = Double.parseDouble(discount);
+                        Double calc = actualPrice * (discountPrice)/100;
+                        product.setPrice(df.format(calc).toString());
+                    }
+                    circularList2.add(product);
+                    offer = new Offer(desc, discount, priority);
+                    priorityQueue.queuing(offer);
+                    offer.setProducts(circularList2);
                 }
-                circularList2.add(product);
-                offer = new Offer(desc, discount, priority);
-                priorityQueue.queuing(offer);
-                offer.setProducts(circularList2);
+
+                JOptionPane.showMessageDialog(null, "Ofertas Agregadas Correctamente");
+                Offers offers = new Offers();
+                offers.setVisible(true);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "Debes ingresar un archivo PROOFER");
             }
-            
-            JOptionPane.showMessageDialog(null, "Ofertas Agregadas Correctamente");
-            Offers offers = new Offers();
-            offers.setVisible(true);
-            this.dispose();
         }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void txtIDsKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIDsKeyTyped
+        validateOnlyNumbers(evt);
+    }//GEN-LAST:event_txtIDsKeyTyped
+
+    private void txtDiscountKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDiscountKeyTyped
+        validateOnlyNumbers(evt);
+    }//GEN-LAST:event_txtDiscountKeyTyped
 
     /**
      * @param args the command line arguments

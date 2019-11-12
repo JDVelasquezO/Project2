@@ -5,10 +5,13 @@
  */
 package proyecto2;
 
+import kart.Kart;
 import login.Login;
 import node.CircularList;
+import node.DoubleCircularList;
 import node.SimpleList;
 import node.PriorityQueue;
+import node.Stack;
 import product.Product;
 import user.User;
 
@@ -21,7 +24,10 @@ public class Proyecto2 {
     public static SimpleList list;
     public static CircularList circularList;
     public static CircularList circularList2;
+    public static CircularList circularList3;
     public static PriorityQueue priorityQueue;
+    public static DoubleCircularList doubleCircularList;
+    public static Stack stack;
     public static User objectTemp;
     public static Product objectProduct;
     
@@ -30,6 +36,8 @@ public class Proyecto2 {
         circularList = new CircularList();
         circularList2 = new CircularList();
         priorityQueue = new PriorityQueue();
+        doubleCircularList = new DoubleCircularList();
+        stack = new Stack();
         
         User user = new User("Daniel", "Velasquez", "jd@gmail.com", "123", "456", false);
         User user2 = new User("Josefino", "Orozco", "josefino@gmail.com", "123", "456", false);

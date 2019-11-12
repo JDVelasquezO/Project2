@@ -16,6 +16,7 @@ public class Node {
     public Object circularValue;
     public Offer value;
     public Node next;
+    public Node previous;
 
     public Node(Object value, Node next) {
         this.circularValue = value;

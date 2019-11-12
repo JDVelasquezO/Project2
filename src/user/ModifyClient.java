@@ -72,11 +72,21 @@ public class ModifyClient extends javax.swing.JFrame {
         jLabel7.setText("Nombre:");
 
         txtFirst1.setFont(new java.awt.Font("Calibri Light", 0, 14)); // NOI18N
+        txtFirst1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtFirst1KeyTyped(evt);
+            }
+        });
 
         jLabel8.setFont(new java.awt.Font("Calibri Light", 0, 14)); // NOI18N
         jLabel8.setText("Apellido:");
 
         txtLast1.setFont(new java.awt.Font("Calibri Light", 0, 14)); // NOI18N
+        txtLast1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtLast1KeyTyped(evt);
+            }
+        });
 
         jLabel9.setFont(new java.awt.Font("Calibri Light", 0, 14)); // NOI18N
         jLabel9.setText("Email:");
@@ -212,6 +222,30 @@ public class ModifyClient extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    public static void validateOnlyNumbers (java.awt.event.KeyEvent evt) {
+        char validate = evt.getKeyChar();
+        if (Character.isLetter(validate)) {
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "Solo ingresar numeros");
+        }
+    }
+    
+    public static void validateOnlyLetters (java.awt.event.KeyEvent evt) {
+        char validate = evt.getKeyChar();
+        if (Character.isDigit(validate)) {
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "Solo ingresar letras");
+        }
+    }
+    
+    private void txtFirst1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFirst1KeyTyped
+        validateOnlyLetters(evt);
+    }//GEN-LAST:event_txtFirst1KeyTyped
+
+    private void txtLast1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLast1KeyTyped
+        validateOnlyLetters(evt);
+    }//GEN-LAST:event_txtLast1KeyTyped
 
     /**
      * @param args the command line arguments

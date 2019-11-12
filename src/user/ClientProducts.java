@@ -5,11 +5,15 @@
  */
 package user;
 
+import bill.GenerateBill;
 import java.awt.Color;
 import java.awt.Cursor;
 import static java.awt.Frame.HAND_CURSOR;
 import java.awt.Image;
 import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -17,9 +21,14 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
+import kart.Kart;
+import kart.ShoopingKart;
 import login.Login;
 import product.Product;
 import static proyecto2.Proyecto2.circularList;
+import static proyecto2.Proyecto2.circularList3;
+import static proyecto2.Proyecto2.doubleCircularList;
+import static proyecto2.Proyecto2.objectProduct;
 import static proyecto2.Proyecto2.objectTemp;
 
 /**
@@ -33,6 +42,10 @@ public class ClientProducts extends javax.swing.JFrame {
     JLabel[] labels2;
     JButton[] button;
     Border border = BorderFactory.createLineBorder(Color.black, 1);
+    DecimalFormat df;
+    public static String infoKart;
+    public static int counterKart = 0;
+    public static double priceProduct = 0;
     /**
      * Creates new form ClientProducts
      */
@@ -40,13 +53,22 @@ public class ClientProducts extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         
+        df = new DecimalFormat("#.00");
+        infoKart = "";
+        jButtonKart.setText("(0) Q 0.00");
         labels = new JLabel[length];
         labels2 = new JLabel[length];
         button = new JButton[length];
         nameText = objectTemp.getName();
         jLabel1.setText("Bienvenido " + nameText);
         
+        if (!doubleCircularList.isEmpty()) {
+            infoKart = "(" + counterKart + ") " + " Q." + df.format(priceProduct);
+            jButtonKart.setText(infoKart);
+        }
+        
         chargueProducts();
+        setButtonEvent(button);
     }
     
     public void chargueProducts() {
@@ -59,7 +81,7 @@ public class ClientProducts extends javax.swing.JFrame {
             dir = prod.getImage();
             price = prod.getPrice();
             img = new ImageIcon(dir);
-            System.out.println(name);
+            //System.out.println(name);
 
             labels[i] = new JLabel();
             labels[i].setBounds(new Rectangle((i)*220, 35, 200, 150));
@@ -73,14 +95,14 @@ public class ClientProducts extends javax.swing.JFrame {
             labels2[i] = new JLabel();
             labels2[i].setBounds(new Rectangle((i)*220, 130, 200, 150));
             labels2[i].setHorizontalAlignment(SwingConstants.CENTER);
-            labels2[i].setText(name + " Q." + price);
+            labels2[i].setText(name);
             labels2[i].setCursor(new Cursor(HAND_CURSOR));
 
             button[i] = new JButton();
-            button[i].setBounds(new Rectangle((i)*240, 220, 100, 20));
+            button[i].setBounds(new Rectangle((i)*240, 220, 220, 20));
             button[i].setHorizontalAlignment(SwingConstants.CENTER);
             button[i].setCursor(new Cursor(HAND_CURSOR));
-            button[i].setText("Añadir al carrito");
+            button[i].setText(prod.getId() + " - " + price);
 
             jTextArea1.add(labels[i], null);
             jTextArea1.add(labels2[i], null);
@@ -88,6 +110,28 @@ public class ClientProducts extends javax.swing.JFrame {
         }
     }
 
+    public void setButtonEvent(JButton[] button) {
+        for (int i = 0; i < button.length; i++) {
+            button[i].addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    int id = 0; double price;
+                    counterKart++;
+                    JButton obj = (JButton)e.getSource();
+                    String[] data = obj.getText().split(" ");
+                    id = Integer.parseInt(data[0]);
+                    price = Double.parseDouble(data[2]);
+                    double priceProductActual = price;
+                    priceProduct += priceProductActual;
+                    infoKart = "(" + counterKart + ") " + " Q." + df.format(priceProduct);
+                    jButtonKart.setText(infoKart);
+                    Product product = (Product) circularList.getValue(id);
+                    doubleCircularList.add(product);
+                }
+            });
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -105,7 +149,7 @@ public class ClientProducts extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        jButtonKart = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
 
@@ -161,9 +205,14 @@ public class ClientProducts extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jButton4.setText("(0) Q.0.00");
+        jButtonKart.setText("(0) Q.0.00");
 
         jButton5.setText("Pagar");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Regresar");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -187,7 +236,7 @@ public class ClientProducts extends javax.swing.JFrame {
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton4)
+                        .addComponent(jButtonKart)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton5)))
                 .addContainerGap())
@@ -203,7 +252,7 @@ public class ClientProducts extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4)
+                    .addComponent(jButtonKart)
                     .addComponent(jButton5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
@@ -249,6 +298,12 @@ public class ClientProducts extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        ShoopingKart sk = new ShoopingKart();
+        sk.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton5ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -288,8 +343,8 @@ public class ClientProducts extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButtonKart;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

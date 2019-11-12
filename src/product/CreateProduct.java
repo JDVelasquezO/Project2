@@ -1,7 +1,6 @@
 
 package product;
 
-import com.sun.xml.internal.ws.util.StringUtils;
 import files.Files;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
@@ -12,6 +11,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import node.CircularList;
 import static proyecto2.Proyecto2.circularList;
+import static user.ModifyClient.validateOnlyNumbers;
 
 /**
  *
@@ -70,6 +70,11 @@ public class CreateProduct extends javax.swing.JFrame {
         jLabel2.setText("Identificador:");
 
         txtID.setFont(new java.awt.Font("Calibri Light", 0, 14)); // NOI18N
+        txtID.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIDKeyTyped(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Calibri Light", 0, 14)); // NOI18N
         jLabel3.setText("Nombre:");
@@ -85,6 +90,11 @@ public class CreateProduct extends javax.swing.JFrame {
         jLabel5.setText("Precio:");
 
         txtPrice.setFont(new java.awt.Font("Calibri Light", 0, 14)); // NOI18N
+        txtPrice.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPriceKeyTyped(evt);
+            }
+        });
 
         buttonGroup1.add(jRadioButton1);
         jRadioButton1.setFont(new java.awt.Font("Calibri Light", 0, 14)); // NOI18N
@@ -262,7 +272,13 @@ public class CreateProduct extends javax.swing.JFrame {
         if (selected == JFileChooser.APPROVE_OPTION) {
 
             file = jfc.getSelectedFile();
-            txtDir.setText(file.getAbsolutePath());
+            String path = file.getAbsolutePath();
+            String validatePath = path.substring(path.lastIndexOf(".") + 1);
+            if (validatePath.equalsIgnoreCase("jpg") || validatePath.equalsIgnoreCase("png")) {
+                txtDir.setText(path);
+            } else {
+                JOptionPane.showMessageDialog(null, "Debes ingresar un archivo JPG o PNG");
+            }
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -271,37 +287,40 @@ public class CreateProduct extends javax.swing.JFrame {
         jfc2.showOpenDialog(jfc2);
         
         try {
-            
             String patch = jfc2.getSelectedFile().getAbsolutePath();
-            FileInputStream file = new FileInputStream(patch);
-            DataInputStream input = new DataInputStream(file);
-            BufferedReader buffer = new BufferedReader(new InputStreamReader(input));
-            
-            String str;
-            String str2 = "";
-            String[] length = null;
-            
-            while (( str = buffer.readLine()) != null) {
-                str2 += str + "\n";
-                length = str2.split("\n");
-            }
-            
-            for (int i = 0; i < length.length; i++) {
-                    array2 = length[i].split(",");
-                    name = array2[0];
-                    desc = array2[1];
-                    price = array2[2];
-                    id = array2[3];
-                    dir = array2[4];
+            String validatePath = patch.substring(patch.lastIndexOf(".") + 1);
+            if (validatePath.equalsIgnoreCase("proadd")) {
+                FileInputStream file = new FileInputStream(patch);
+                DataInputStream input = new DataInputStream(file);
+                BufferedReader buffer = new BufferedReader(new InputStreamReader(input));
+                String str;
+                String str2 = "";
+                String[] length = null;
 
-                    Product product = new Product(id, name, desc, price, false, dir);
-                    circularList.add(product);
+                while (( str = buffer.readLine()) != null) {
+                    str2 += str + "\n";
+                    length = str2.split("\n");
+                }
+
+                for (int i = 0; i < length.length; i++) {
+                        array2 = length[i].split(",");
+                        name = array2[0];
+                        desc = array2[1];
+                        price = array2[2];
+                        id = array2[3];
+                        dir = array2[4];
+
+                        Product product = new Product(id, name, desc, price, true, dir);
+                        circularList.add(product);
+                }
+
+                JOptionPane.showMessageDialog(null, "Productos cargados correctamente");
+                Products products = new Products();
+                products.setVisible(true);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "Debes ingresar un archivo PROADD");
             }
-            
-            JOptionPane.showMessageDialog(null, "Productos cargados correctamente");
-            Products products = new Products();
-            products.setVisible(true);
-            this.dispose();
             
         } catch (Exception e) {
             System.out.println(e);
@@ -313,6 +332,14 @@ public class CreateProduct extends javax.swing.JFrame {
         mp.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void txtIDKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIDKeyTyped
+        validateOnlyNumbers(evt);
+    }//GEN-LAST:event_txtIDKeyTyped
+
+    private void txtPriceKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPriceKeyTyped
+        validateOnlyNumbers(evt);
+    }//GEN-LAST:event_txtPriceKeyTyped
 
     /**
      * @param args the command line arguments

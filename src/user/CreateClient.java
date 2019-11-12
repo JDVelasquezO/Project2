@@ -8,6 +8,7 @@ package user;
 import javax.swing.JOptionPane;
 import login.Login;
 import static proyecto2.Proyecto2.list;
+import static user.ModifyClient.validateOnlyLetters;
 
 /**
  *
@@ -45,6 +46,7 @@ public class CreateClient extends javax.swing.JFrame {
         txtEmail = new javax.swing.JTextField();
         txtLast1 = new javax.swing.JTextField();
         txtFirst1 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -81,8 +83,25 @@ public class CreateClient extends javax.swing.JFrame {
         txtEmail.setFont(new java.awt.Font("Calibri Light", 0, 14)); // NOI18N
 
         txtLast1.setFont(new java.awt.Font("Calibri Light", 0, 14)); // NOI18N
+        txtLast1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtLast1KeyTyped(evt);
+            }
+        });
 
         txtFirst1.setFont(new java.awt.Font("Calibri Light", 0, 14)); // NOI18N
+        txtFirst1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtFirst1KeyTyped(evt);
+            }
+        });
+
+        jButton1.setText("Regresar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -108,7 +127,8 @@ public class CreateClient extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
                                 .addComponent(jButton2)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton1))
                             .addComponent(txtEmail)
                             .addComponent(txtLast1)
                             .addComponent(txtFirst1)
@@ -138,13 +158,15 @@ public class CreateClient extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel10)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(txtPass, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE))
+                    .addComponent(txtPass, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCredit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2)
+                    .addComponent(jButton1))
                 .addGap(15, 15, 15))
         );
 
@@ -170,6 +192,20 @@ public class CreateClient extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Login login = new Login();
+        login.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txtFirst1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFirst1KeyTyped
+        validateOnlyLetters(evt);
+    }//GEN-LAST:event_txtFirst1KeyTyped
+
+    private void txtLast1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLast1KeyTyped
+        validateOnlyLetters(evt);
+    }//GEN-LAST:event_txtLast1KeyTyped
 
     /**
      * @param args the command line arguments
@@ -207,6 +243,7 @@ public class CreateClient extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

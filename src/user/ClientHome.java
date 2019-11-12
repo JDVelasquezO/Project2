@@ -46,6 +46,7 @@ public class ClientHome extends javax.swing.JFrame {
         button = new JButton[length];
         nameText = objectTemp.getName();
         jLabel1.setText("Bienvenido " + nameText);
+        jButton3.requestFocus();
         
         for (int i = 0; i < priorityQueue.getLength(); i++) {
             Offer offer = (Offer) priorityQueue.getValue(i);

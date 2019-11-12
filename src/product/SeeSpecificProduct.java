@@ -11,13 +11,14 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import static proyecto2.Proyecto2.circularList;
 import static proyecto2.Proyecto2.objectProduct;
+import static user.ModifyClient.validateOnlyNumbers;
 
 /**
  *
  * @author JDVelasquezO
  */
 public class SeeSpecificProduct extends javax.swing.JFrame {
-    String id = objectProduct.getId();
+    String id;
     
     public SeeSpecificProduct() {
         initComponents();
@@ -132,6 +133,11 @@ public class SeeSpecificProduct extends javax.swing.JFrame {
         jTextField4.setEditable(false);
         jTextField4.setFont(new java.awt.Font("Calibri Light", 0, 14)); // NOI18N
         jTextField4.setText("jTextField4");
+        jTextField4.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField4KeyTyped(evt);
+            }
+        });
 
         jButton4.setFont(new java.awt.Font("Calibri Light", 0, 14)); // NOI18N
         jButton4.setText("Guardar");
@@ -167,7 +173,6 @@ public class SeeSpecificProduct extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton1))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -291,6 +296,10 @@ public class SeeSpecificProduct extends javax.swing.JFrame {
             this.dispose();
         }
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jTextField4KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField4KeyTyped
+        validateOnlyNumbers(evt);
+    }//GEN-LAST:event_jTextField4KeyTyped
 
     public void switchComponents(boolean value) {
         jTextField1.setEditable(value);
