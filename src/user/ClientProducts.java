@@ -24,25 +24,28 @@ import javax.swing.border.Border;
 import kart.Kart;
 import kart.ShoopingKart;
 import login.Login;
+import node.DoubleCircularList;
 import product.Product;
 import static proyecto2.Proyecto2.circularList;
 import static proyecto2.Proyecto2.circularList3;
 import static proyecto2.Proyecto2.doubleCircularList;
 import static proyecto2.Proyecto2.objectProduct;
 import static proyecto2.Proyecto2.objectTemp;
+import static proyecto2.Proyecto2.stack;
 
 /**
  *
  * @author JDVelasquezO
  */
 public class ClientProducts extends javax.swing.JFrame {
-    String nameText;
+    String nameText, typeClient;
     int length = circularList.getLength();
     JLabel[] labels;
     JLabel[] labels2;
     JButton[] button;
     Border border = BorderFactory.createLineBorder(Color.black, 1);
     DecimalFormat df;
+    public static int lengthProductsTotal = 0;
     public static String infoKart;
     public static int counterKart = 0;
     public static double priceProduct = 0;
@@ -53,6 +56,13 @@ public class ClientProducts extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         
+        verifyProducts();
+        typeClient = "";
+        
+        if (objectTemp.isType()) {
+            typeClient = "Consumidor Frecuente";
+        }
+        
         df = new DecimalFormat("#.00");
         infoKart = "";
         jButtonKart.setText("(0) Q 0.00");
@@ -60,7 +70,7 @@ public class ClientProducts extends javax.swing.JFrame {
         labels2 = new JLabel[length];
         button = new JButton[length];
         nameText = objectTemp.getName();
-        jLabel1.setText("Bienvenido " + nameText);
+        jLabel2.setText("Bienvenido " + nameText + " - " + typeClient);
         
         if (!doubleCircularList.isEmpty()) {
             infoKart = "(" + counterKart + ") " + " Q." + df.format(priceProduct);
@@ -69,6 +79,13 @@ public class ClientProducts extends javax.swing.JFrame {
         
         chargueProducts();
         setButtonEvent(button);
+    }
+    
+    public void verifyProducts() {
+        //System.out.println(lengthProductsTotal);
+        if (lengthProductsTotal >= 3) {
+            objectTemp.setType(true);
+        }
     }
     
     public void chargueProducts() {
@@ -123,6 +140,11 @@ public class ClientProducts extends javax.swing.JFrame {
                     price = Double.parseDouble(data[2]);
                     double priceProductActual = price;
                     priceProduct += priceProductActual;
+                    
+                    if (objectTemp.isType()) {
+                        priceProduct = priceProduct - (priceProduct * 0.2);
+                    }
+                    
                     infoKart = "(" + counterKart + ") " + " Q." + df.format(priceProduct);
                     jButtonKart.setText(infoKart);
                     Product product = (Product) circularList.getValue(id);
@@ -286,10 +308,12 @@ public class ClientProducts extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        objectTemp = null;
+        typeClient = "";
+        lengthProductsTotal = 0;
         Login login = new Login();
         login.setVisible(true);
         this.dispose();
-        objectTemp = null;
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed

@@ -18,6 +18,7 @@ import static proyecto2.Proyecto2.objectTemp;
 import static proyecto2.Proyecto2.stack;
 import user.ClientProducts;
 import static user.ClientProducts.counterKart;
+import static user.ClientProducts.lengthProductsTotal;
 import static user.ClientProducts.priceProduct;
 import static user.Users.cleanTable;
 
@@ -26,7 +27,7 @@ import static user.Users.cleanTable;
  * @author JDVelasquezO
  */
 public class GenerateBill extends javax.swing.JFrame {
-    String nameText;
+    String nameText, creditClient;
     DecimalFormat df;
     String creditTarget, dateTarget, nameTarget, dir, nameBill, Nit;
     private SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyy");
@@ -41,6 +42,8 @@ public class GenerateBill extends javax.swing.JFrame {
         
         df = new DecimalFormat("#.00");
         nameText = objectTemp.getName();
+        creditClient = objectTemp.getCreditCard();
+        
         jLabel1.setText("Bienvenido " + nameText);
         jTextField1.requestFocus();
         
@@ -282,10 +285,10 @@ public class GenerateBill extends javax.swing.JFrame {
         nameBill = jTextField4.getText();
         Nit = jTextField5.getText();
         
-        System.out.println(creditTarget);
+        //System.out.println(creditTarget);
         if (creditTarget.isEmpty() || nameTarget.isEmpty() || dir.isEmpty() || 
-                nameBill.isEmpty() || Nit.isEmpty() || dateTarget.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Debes llenar todos los campos");
+                nameBill.isEmpty() || Nit.isEmpty() || dateTarget.isEmpty() || !creditTarget.equals(creditClient)) {
+            JOptionPane.showMessageDialog(null, "Revisa bien todos los campos");
         } else {
             int option = JOptionPane.showConfirmDialog(null, "¿Deseas pagar los productos?");
             if (option == JOptionPane.YES_OPTION) {
@@ -306,15 +309,17 @@ public class GenerateBill extends javax.swing.JFrame {
         Bill bill = new Bill("normal", nameText, nit, "Usuario Normal", 
                 dateTarget, dir, nameTarget, 0.00, priceProduct, priceProduct, doubleCircularList);
         
+        lengthProductsTotal += doubleCircularList.getLength();
+        objectTemp.setLengthProducts(lengthProductsTotal);
         stack.push(bill);
         JOptionPane.showMessageDialog(null, "Comprado correctamente");
         doubleCircularList = new DoubleCircularList();
         priceProduct = 0;
         counterKart = 0;
-        for (int i = 0; i < stack.getLength(); i++) {
+        /*for (int i = 0; i < stack.getLength(); i++) {
             Bill bill1 = (Bill) stack.getValue(i);
             System.out.println(bill1.getNumber());
-        }
+        }*/
         ClientProducts cp = new ClientProducts();
         cp.setVisible(true);
         this.dispose();

@@ -5,6 +5,8 @@
  */
 package user;
 
+import node.CircularList;
+
 /**
  *
  * @author JDVelasquezO
@@ -14,6 +16,7 @@ public class User {
     public static int counter = 0;
     private String name, last, email, pass, creditCard;
     private boolean type;
+    private int lengthProducts;
 
     public User(String name, String last, String email, String pass, String creditCard, boolean type) {
         this.id = counter;
@@ -23,6 +26,8 @@ public class User {
         this.email = email;
         this.pass = pass;
         this.creditCard = creditCard;
+        this.type = type;
+        this.lengthProducts = 0;
     }
     
     public User(int id, String name, String last, String email, String pass, String creditCard, boolean type) {
@@ -88,6 +93,14 @@ public class User {
 
     public void setType(boolean type) {
         this.type = type;
+    }
+
+    public int getLengthProducts() {
+        return lengthProducts;
+    }
+
+    public void setLengthProducts(int lengthProducts) {
+        this.lengthProducts = lengthProducts;
     }
     
     @Override

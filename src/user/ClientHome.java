@@ -17,11 +17,14 @@ import java.awt.Image;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import node.DoubleCircularList;
 import offer.Offer;
 import product.Product;
 import static proyecto2.Proyecto2.circularList;
+import static proyecto2.Proyecto2.doubleCircularList;
 import static proyecto2.Proyecto2.objectTemp;
 import static proyecto2.Proyecto2.priorityQueue;
+import static proyecto2.Proyecto2.stack;
 
 /**
  *
@@ -86,10 +89,6 @@ public class ClientHome extends javax.swing.JFrame {
                 jTextArea1.add(button[j], null);
             }
         }
-    }
-    
-    public void addToCart() {
-        
     }
 
     /**

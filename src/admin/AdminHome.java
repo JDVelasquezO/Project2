@@ -10,6 +10,7 @@ import product.MenuProducts;
 import user.Users;
 import offer.CreateOffer;
 import offer.MenuOffers;
+import reports.ReportsHome;
 
 /**
  *
@@ -77,6 +78,11 @@ public class AdminHome extends javax.swing.JFrame {
 
         jButton5.setFont(new java.awt.Font("Calibri Light", 0, 14)); // NOI18N
         jButton5.setText("Reportes");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -157,6 +163,12 @@ public class AdminHome extends javax.swing.JFrame {
         menuOffers.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        ReportsHome rp = new ReportsHome();
+        rp.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments

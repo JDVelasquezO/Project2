@@ -39,8 +39,8 @@ public class Proyecto2 {
         doubleCircularList = new DoubleCircularList();
         stack = new Stack();
         
-        User user = new User("Daniel", "Velasquez", "jd@gmail.com", "123", "456", false);
-        User user2 = new User("Josefino", "Orozco", "josefino@gmail.com", "123", "456", false);
+        User user = new User("Daniel", "Velasquez", "jd@gmail.com", "123", "1234", false);
+        User user2 = new User("Josefino", "Orozco", "josefino@gmail.com", "123", "4321", false);
         list.addStart(user);
         list.addFinish(user2);
         
