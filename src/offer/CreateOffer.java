@@ -284,17 +284,20 @@ public class CreateOffer extends javax.swing.JFrame {
             String path = file.getAbsolutePath();
             String validatePath = path.substring(path.lastIndexOf(".") + 1);
             if (validatePath.equalsIgnoreCase("PROOFER")) {
+                
                 fileToRead = files.read(file.getAbsolutePath());
                 array = fileToRead.split("%");
 
                 for (int i = 0; i < array.length; i++) {
                     array2 = array[i].split(",");
+                    System.out.println(array2[i]);
+                    
                     desc = array2[0];
                     discount = array2[1];
                     priority = array2[3];
                     String[] names = array2[2].split(";");
 
-                    for (int j = 0; j < names.length; j++) {
+                    /*for (int j = 0; j < names.length; j++) {
                         product = (Product) circularList.searchName(names[j]);
                         Double actualPrice = Double.parseDouble(product.getPrice());
                         Double discountPrice = Double.parseDouble(discount);
@@ -304,13 +307,13 @@ public class CreateOffer extends javax.swing.JFrame {
                     circularList2.add(product);
                     offer = new Offer(desc, discount, priority);
                     priorityQueue.queuing(offer);
-                    offer.setProducts(circularList2);
+                    offer.setProducts(circularList2);*/
                 }
 
-                JOptionPane.showMessageDialog(null, "Ofertas Agregadas Correctamente");
+                /*JOptionPane.showMessageDialog(null, "Ofertas Agregadas Correctamente");
                 Offers offers = new Offers();
                 offers.setVisible(true);
-                this.dispose();
+                this.dispose();*/
             } else {
                 JOptionPane.showMessageDialog(null, "Debes ingresar un archivo PROOFER");
             }

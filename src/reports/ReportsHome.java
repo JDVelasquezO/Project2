@@ -5,6 +5,18 @@
  */
 package reports;
 
+import bill.Bill;
+import static graphviz.Plotter.openFile;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
+import node.CircularList;
+import node.DoubleCircularList;
+import product.Product;
+import static proyecto2.Proyecto2.stack;
+import static template.Footer.footer;
+import static template.Header.header;
+
 /**
  *
  * @author JDVelasquezO
@@ -42,8 +54,18 @@ public class ReportsHome extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jButton1.setText("Productos Comprados por cada Usuario");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Ganancias de los productos mas vendidos");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Usuarios que han cancelado sus compras");
 
@@ -112,6 +134,58 @@ public class ReportsHome extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        int length = stack.getLength();
+        String name = "";
+        DoubleCircularList prods = null;
+        Product prod = null;
+        
+        FileOutputStream file;
+        String text = header;
+        PrintStream print;
+        
+        for (int i = 0; i < length; i++) {
+            Bill bill = (Bill) stack.getValue(i);
+            name = bill.getNameClient();
+            prods = bill.getProductsList();
+            
+            text += "<tr>"
+                    + "<td>" + name + "</td>";
+            text += "  <td>";
+                        System.out.println(name + ":");
+                        for (int j = 0; j < prods.getLength(); j++) {
+                            prod = (Product) prods.getValue(j);
+                            text += prod.getName() + ", ";
+                            System.out.print("\t" + prod.getName() + " ");
+                        }
+                        System.out.println();
+            
+            text += "  </td>"
+                + " </tr>";
+        }
+        
+        text += footer;
+        
+        try {
+            
+            file = new FileOutputStream("C:\\Users\\JDVelasquezO\\Desktop\\Report1.html");
+            print = new PrintStream(file);
+            print.print(text);
+            print.close();
+            
+        } catch (FileNotFoundException e) {
+            System.out.println(e);
+        }
+        
+        openFile("C:\\Users\\JDVelasquezO\\Desktop\\Report1.html");
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        Earnings e = new Earnings();
+        e.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
