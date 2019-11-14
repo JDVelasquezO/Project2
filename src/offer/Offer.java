@@ -10,12 +10,17 @@ public class Offer {
     
     public static int counter = 0;
     private int id;
-    private String desc, discount, priority;
+    private String desc, discount, priority, names;
     private CircularList products;
     
     public Offer (String desc, String discount, String priority) {
         setId(counter++); setDesc(desc); setDiscount(discount); setPriority(priority);
         products = new CircularList();
+    }
+    
+    public Offer (String desc, String discount, String priority, String names) {
+        setId(counter++); setDesc(desc); setDiscount(discount); setPriority(priority);
+        setNames(names);
     }
 
     public int getId() {
@@ -56,6 +61,14 @@ public class Offer {
 
     public void setProducts(CircularList products) {
         this.products = products;
+    }
+
+    public String getNames() {
+        return names;
+    }
+
+    public void setNames(String names) {
+        this.names = names;
     }
 
     @Override

@@ -11,6 +11,7 @@ import static proyecto2.Proyecto2.list;
 import static proyecto2.Proyecto2.objectTemp;
 import user.User;
 import user.ClientHome;
+import user.ClientProducts;
 import user.CreateClient;
 import user.UserHome;
 
@@ -222,7 +223,7 @@ public class Login extends javax.swing.JFrame {
                     Object object = list.getValue(i);
                     if (object.toString().equals(email + pass)) {
                         objectTemp = (User) object;
-                        ClientHome clientHome = new ClientHome();
+                        ClientProducts clientHome = new ClientProducts();
                         clientHome.setVisible(true);
                         this.dispose();
                     } else {

@@ -307,8 +307,9 @@ public class GenerateBill extends javax.swing.JFrame {
             String nameBill, String nit, String date, DoubleCircularList prods) {
         
         Bill bill = new Bill("normal", nameText, nit, "Usuario Normal", 
-                dateTarget, dir, nameTarget, 0.00, priceProduct, priceProduct, doubleCircularList);
+                dateTarget, dir, creditTarget, 0.00, priceProduct, priceProduct, doubleCircularList);
         
+        objectTemp.setBill(bill);
         lengthProductsTotal += doubleCircularList.getLength();
         objectTemp.setLengthProducts(lengthProductsTotal);
         stack.push(bill);
@@ -320,9 +321,17 @@ public class GenerateBill extends javax.swing.JFrame {
             Bill bill1 = (Bill) stack.getValue(i);
             System.out.println(bill1.getNumber());
         }*/
-        ClientProducts cp = new ClientProducts();
-        cp.setVisible(true);
-        this.dispose();
+        
+        int option = JOptionPane.showConfirmDialog(null, "¿Deseas guardar tu factura ahora?");
+        if (option == JOptionPane.YES_OPTION) {
+            GeneratePDF gp = new GeneratePDF();
+            gp.setVisible(true);
+            this.dispose();
+        } else {
+            ClientProducts cp = new ClientProducts();
+            cp.setVisible(true);
+            this.dispose();
+        }
     }
     
     /**

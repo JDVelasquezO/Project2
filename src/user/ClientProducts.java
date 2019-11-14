@@ -311,6 +311,7 @@ public class ClientProducts extends javax.swing.JFrame {
         objectTemp = null;
         typeClient = "";
         lengthProductsTotal = 0;
+        priceProduct = 0;
         Login login = new Login();
         login.setVisible(true);
         this.dispose();

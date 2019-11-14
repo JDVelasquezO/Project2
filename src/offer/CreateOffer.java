@@ -29,7 +29,7 @@ import static user.ModifyClient.validateOnlyNumbers;
 public class CreateOffer extends javax.swing.JFrame {
     DefaultListModel modelProds;
     DecimalFormat df;
-    public static String desc, discount, priority;
+    public static String desc, products, discount, priority;
     
     public CreateOffer() {
         initComponents();
@@ -290,24 +290,18 @@ public class CreateOffer extends javax.swing.JFrame {
 
                 for (int i = 0; i < array.length; i++) {
                     array2 = array[i].split(",");
-                    System.out.println(array2[i]);
-                    
                     desc = array2[0];
                     discount = array2[1];
+                    products = array2[2];
                     priority = array2[3];
-                    String[] names = array2[2].split(";");
 
-                    /*for (int j = 0; j < names.length; j++) {
-                        product = (Product) circularList.searchName(names[j]);
-                        Double actualPrice = Double.parseDouble(product.getPrice());
-                        Double discountPrice = Double.parseDouble(discount);
-                        Double calc = actualPrice * (discountPrice)/100;
-                        product.setPrice(df.format(calc).toString());
-                    }
-                    circularList2.add(product);
-                    offer = new Offer(desc, discount, priority);
+                    offer = new Offer(desc, discount, priority, products);
                     priorityQueue.queuing(offer);
-                    offer.setProducts(circularList2);*/
+                }
+                
+                for (int i = 0; i < priorityQueue.getLength(); i++) {
+                    Offer offers = (Offer) priorityQueue.getValue(i);
+                    System.out.println(offers.getNames());
                 }
 
                 /*JOptionPane.showMessageDialog(null, "Ofertas Agregadas Correctamente");

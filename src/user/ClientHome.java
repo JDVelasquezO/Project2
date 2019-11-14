@@ -14,6 +14,9 @@ import javax.swing.border.Border;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -25,18 +28,27 @@ import static proyecto2.Proyecto2.doubleCircularList;
 import static proyecto2.Proyecto2.objectTemp;
 import static proyecto2.Proyecto2.priorityQueue;
 import static proyecto2.Proyecto2.stack;
+import static user.ClientProducts.counterKart;
+import static user.ClientProducts.infoKart;
+import static user.ClientProducts.lengthProductsTotal;
+import static user.ClientProducts.priceProduct;
 
 /**
  *
  * @author JDVelasquezO
  */
 public class ClientHome extends javax.swing.JFrame {
-    String nameText;
+    String nameText, typeClient;
     int length = circularList.getLength();
     JLabel[] labels;
     JLabel[] labels2;
     JButton[] button;
     Border border = BorderFactory.createLineBorder(Color.black, 1);
+    DecimalFormat df;
+    public static int lengthProductsTotal = 0;
+    public static String infoKart;
+    public static int counterKart = 0;
+    public static double priceProduct = 0;
     
     public ClientHome() {
         initComponents();
@@ -44,12 +56,28 @@ public class ClientHome extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setTitle("Cliente");
         
+        verifyProducts();
+        typeClient = "";
+        
+        if (objectTemp.isType()) {
+            typeClient = "Consumidor Frecuente";
+        }
+        
+        df = new DecimalFormat("#.00");
+        infoKart = "";
+        jButtonKart.setText("(0) Q 0.00");
+        
         labels = new JLabel[length];
         labels2 = new JLabel[length];
         button = new JButton[length];
         nameText = objectTemp.getName();
         jLabel1.setText("Bienvenido " + nameText);
         jButton3.requestFocus();
+        
+        if (!doubleCircularList.isEmpty()) {
+            infoKart = "(" + counterKart + ") " + " Q." + df.format(priceProduct);
+            jButtonKart.setText(infoKart);
+        }
         
         for (int i = 0; i < priorityQueue.getLength(); i++) {
             Offer offer = (Offer) priorityQueue.getValue(i);
@@ -89,6 +117,42 @@ public class ClientHome extends javax.swing.JFrame {
                 jTextArea1.add(button[j], null);
             }
         }
+        
+        //setButtonEvent(button);
+    }
+    
+    public void setButtonEvent(JButton[] button) {
+        for (int i = 0; i < button.length; i++) {
+            button[i].addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    int id = 0; double price;
+                    counterKart++;
+                    JButton obj = (JButton)e.getSource();
+                    String[] data = obj.getText().split(" ");
+                    id = Integer.parseInt(data[0]);
+                    price = Double.parseDouble(data[2]);
+                    double priceProductActual = price;
+                    priceProduct += priceProductActual;
+                    
+                    if (objectTemp.isType()) {
+                        priceProduct = priceProduct - (priceProduct * 0.2);
+                    }
+                    
+                    infoKart = "(" + counterKart + ") " + " Q." + df.format(priceProduct);
+                    jButtonKart.setText(infoKart);
+                    Product product = (Product) circularList.getValue(id);
+                    doubleCircularList.add(product);
+                }
+            });
+        }
+    }
+    
+    public void verifyProducts() {
+        //System.out.println(lengthProductsTotal);
+        if (lengthProductsTotal >= 3) {
+            objectTemp.setType(true);
+        }
     }
 
     /**
@@ -108,7 +172,7 @@ public class ClientHome extends javax.swing.JFrame {
         jTextArea1 = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        jButtonKart = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -170,7 +234,7 @@ public class ClientHome extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setText("(0) Q.0.00");
+        jButtonKart.setText("(0) Q.0.00");
 
         jButton5.setText("Pagar");
 
@@ -189,7 +253,7 @@ public class ClientHome extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton4)
+                        .addComponent(jButtonKart)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton5)))
                 .addContainerGap())
@@ -202,7 +266,7 @@ public class ClientHome extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jButton4)
+                    .addComponent(jButtonKart)
                     .addComponent(jButton5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE)
@@ -272,8 +336,8 @@ public class ClientHome extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButtonKart;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

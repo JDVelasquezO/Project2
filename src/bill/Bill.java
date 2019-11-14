@@ -14,7 +14,7 @@ import node.DoubleCircularList;
 public class Bill {
     
     private DoubleCircularList productsList;
-    public static int counter = 0;
+    public static int counter = 1;
     private int number;
     private String type, nameClient, nitClient, typeClient, date, dir, targetClient;
     private double discount, subtotal, total;

@@ -5,6 +5,7 @@
  */
 package user;
 
+import bill.Bill;
 import node.CircularList;
 
 /**
@@ -17,6 +18,7 @@ public class User {
     private String name, last, email, pass, creditCard;
     private boolean type;
     private int lengthProducts;
+    private Bill bill;
 
     public User(String name, String last, String email, String pass, String creditCard, boolean type) {
         this.id = counter;
@@ -28,6 +30,7 @@ public class User {
         this.creditCard = creditCard;
         this.type = type;
         this.lengthProducts = 0;
+        this.bill = null;
     }
     
     public User(int id, String name, String last, String email, String pass, String creditCard, boolean type) {
@@ -101,6 +104,14 @@ public class User {
 
     public void setLengthProducts(int lengthProducts) {
         this.lengthProducts = lengthProducts;
+    }
+
+    public Bill getBill() {
+        return bill;
+    }
+
+    public void setBill(Bill bill) {
+        this.bill = bill;
     }
     
     @Override
