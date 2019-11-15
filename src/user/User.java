@@ -18,6 +18,7 @@ public class User {
     private String name, last, email, pass, creditCard;
     private boolean type;
     private int lengthProducts;
+    private int lengthBills;
     private Bill bill;
 
     public User(String name, String last, String email, String pass, String creditCard, boolean type) {
@@ -30,6 +31,7 @@ public class User {
         this.creditCard = creditCard;
         this.type = type;
         this.lengthProducts = 0;
+        this.lengthBills = 1;
         this.bill = null;
     }
     
@@ -104,6 +106,14 @@ public class User {
 
     public void setLengthProducts(int lengthProducts) {
         this.lengthProducts = lengthProducts;
+    }
+
+    public int getLengthBills() {
+        return lengthBills;
+    }
+
+    public void setLengthBills(int lengthBills) {
+        this.lengthBills = lengthBills;
     }
 
     public Bill getBill() {

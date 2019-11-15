@@ -31,6 +31,7 @@ public class GenerateBill extends javax.swing.JFrame {
     DecimalFormat df;
     String creditTarget, dateTarget, nameTarget, dir, nameBill, Nit;
     private SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyy");
+    public int counter = 0;
     
     /**
      * Creates new form GenerateBill
@@ -40,6 +41,7 @@ public class GenerateBill extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setTitle("Pago de productos");
         
+        counter++;
         df = new DecimalFormat("#.00");
         nameText = objectTemp.getName();
         creditClient = objectTemp.getCreditCard();
@@ -311,16 +313,13 @@ public class GenerateBill extends javax.swing.JFrame {
         
         objectTemp.setBill(bill);
         lengthProductsTotal += doubleCircularList.getLength();
+        objectTemp.setLengthBills(counter);
         objectTemp.setLengthProducts(lengthProductsTotal);
         stack.push(bill);
         JOptionPane.showMessageDialog(null, "Comprado correctamente");
         doubleCircularList = new DoubleCircularList();
         priceProduct = 0;
         counterKart = 0;
-        /*for (int i = 0; i < stack.getLength(); i++) {
-            Bill bill1 = (Bill) stack.getValue(i);
-            System.out.println(bill1.getNumber());
-        }*/
         
         int option = JOptionPane.showConfirmDialog(null, "¿Deseas guardar tu factura ahora?");
         if (option == JOptionPane.YES_OPTION) {

@@ -33,24 +33,35 @@ public class Plotter {
 
             PrintWriter writer = new PrintWriter(dirDot, "UTF-8");
             graph = "digraph G{";
-            graph += "\nnode [shape=circle];\nnode [style=filled];\nnode [fillcolor=\"#EEEEEE\"];\nnode [color=\"#EEEEEE\"];\nedge [color=\"#31CEF0\"];\n";
+            graph += "\nrankdir=\"LR\";\nnode [shape=circle];\nnode [style=filled];\nnode [fillcolor=\"#EEEEEE\"];\nnode [color=\"#EEEEEE\"];\nedge [color=\"#31CEF0\"];\n";
 
             Node aux = start;
             int idNode = 1;
+            int counter = -1;
+            Product prodName = (Product) aux.circularValue;
 
-            do {
-                Product prodName = (Product) aux.circularValue;
+            while (aux.next != start) {
                 graph += "\n\"" +  idNode + "\"[label=\"Valor: " + prodName.getName() + "\"];\n";
-
+                
                 if(idNode != 1){
                     graph += "\"" + (idNode - 1) + "\"" + " -> " + "\"" + idNode + "\"" + "[label=\"Siguiente\"];\n";
                     graph += "\"" + (idNode) + "\"" + " -> " + "\"" + (idNode - 1) + "\"" + "[label=\"Anterior\"];\n";
                 }
-
+                
                 idNode++;
+                counter++;
                 aux = aux.next;
                 
-            } while(aux != start);
+                if (aux.next == start) {
+                    graph += "\n\"" +  idNode + "\"[label=\"Valor: " + prodName.getName() + "\"];\n";
+                    graph += "\"" + (idNode - 1) + "\"" + " -> " + "\"" + idNode + "\"" + "[label=\"       \"];\n";
+                    graph += "\"" + (idNode) + "\"" + " -> " + "\"" + (idNode - 1) + "\"" + "[label=\"      \"];\n";
+                    counter++;
+
+                    graph += "\"" + (idNode) + "\"" + " -> " + "\"" + (idNode - counter) + "\"" + "[label=\"                  \"];\n";
+                    graph += "\"" + (idNode - counter) + "\"" + " -> " + "\"" + (idNode) + "\"" + "[label=\"                   \"];\n";
+                }
+            }
 
             graph += "}";
 
