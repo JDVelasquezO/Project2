@@ -83,7 +83,7 @@ public class ClientProducts extends javax.swing.JFrame {
     
     public void verifyProducts() {
         //System.out.println(lengthProductsTotal);
-        if (lengthProductsTotal >= 3) {
+        if (lengthProductsTotal >= 15) {
             objectTemp.setType(true);
         }
     }
